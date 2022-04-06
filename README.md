@@ -71,7 +71,7 @@ Podemos compilar esse projeto manualmente usando o comando
 g++ src/main.cc src/math.cc -o cmake-tutorial
 ```
 
-Ou pode-se compilar e link-editar em etapas separadas
+Ou podemos compilar e link-editar em etapas separadas
 
 ```
 g++ -c src/math.cc -o math.o 
@@ -111,32 +111,33 @@ Isto é extremamente util quando trabalhamos com projetos muito grandes um fez q
 
 ## Usando CMake
 
-Now we know how to perform compiling and linking using the `C++` and `make` command.
-Now we can use `cmake` to do all of this for us.
+Agora podemos usar `cmake` para fazer todo esse processo para nós.
 
-Create new `CMakeLists.txt` with the following content:
+Vamos criar um arquivo `CMakeLists.txt` com o seguinte conteúdo:
 
 ```cmake
 cmake_minimum_required (VERSION 3.10)
 
-# Define the project
+# Define o projeto
 project(cmake-tutorial)
 
-# Add definition for math library
+# Define a biblioteca local com nome math
 add_library(math src/math.cc)
 
-# Add definition for the cmake-tutorial binary
+# Define o executável 
 add_executable(cmake-tutorial src/main.cc)
+
+# Indique que a biblioteca math deve ser link-editada com o executável
 target_link_libraries(cmake-tutorial math)
 ```
 
-We can generate the `Makefile` based on the definition above using the following command:
+Podemos gerar um `Makefile` baseado na definição acima usando o seguinte comando: 
 
 ```
 cmake .
 ```
 
-Or create a `build` directory to store the generated files by CMake:
+Ou crie u diretório de `build` para armazenar os arquivos gerados pelo cmake
 
 ```
 mkdir build
@@ -144,7 +145,7 @@ cd build/
 cmake ..
 ```
 
-Now we can run `make cmake-tutorial` to build the binary.
+Agora podemos executar o comando `make cmake-tutorial` para gerar o executável.
 
 ```
 % make cmake-tutorial
@@ -158,18 +159,19 @@ Scanning dependencies of target cmake-tutorial
 [100%] Built target cmake-tutorial
 ```
 
-Or we can use the CMake directly via:
+Ou podemos usar o CMake diretamente via:
 
 ```
 cmake --build . --target cmake-tutorial
 ```
 
-## Using CMake with 3rd-party library
+## Usando o CMake com biblioteca de Terceiros
 
-Suppose that we want to write a unit test for `math::add(a, b)`.
-We will use a [googletest](https://github.com/google/googletest) library to create and run the unit test.
 
-Add the following definition to `CMakeLists.txt`:
+Suponha que queremos escrever um teste unitário para `math::add(a, b)`.
+Usaremos a biblioteca [googletest](https://github.com/google/googletest) para criar e executar o teste.
+
+Adicione a seguinte definição a `CMakeLists.txt`:
 
 ```cmake
 # Third-party library
@@ -180,6 +182,7 @@ ExternalProject_Add(googletest
     GIT_TAG "master"
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/lib/installed
 )
+
 # Prevent build on all targets build
 set_target_properties(googletest PROPERTIES EXCLUDE_FROM_ALL TRUE)
 
