@@ -1,12 +1,12 @@
 # CMake Tutorial
 
-This tutorial cover the following:
+Este tutorial cobre o seguinte tópicos:
 
-1. Build the project using simple `c++(1)` and `make(1)`.
-2. Build the project using `cmake(1)`.
-3. Build the project using `cmake(1)` with third party library.
+1. Construção de projetos usando makefiles.
+2. Construção de projetos usando `cmake(1)`.
+3. Construção de projetos usando makefiles `cmake(1)` com bibliotecas de terceiros.
 
-In this tutorial we will use the following project structure:
+Neste tutorial, usaremos a seguinte estrutura de projeto:
 
 ```
 cmake-tutorial/
@@ -20,19 +20,19 @@ cmake-tutorial/
     └── math_test.cc
 ```
 
-Directory structure:
+Diretórios:
 
-- `src` : Directory for source code.
-- `test` : Directory for test.
+- `src`  : diretório para código-fonte.
+- `test` : diretório para teste.
 
-`src/main.cc` is our main executable and `src/math.{cc,h}` is an internal library that used by `src/main.cc`.
+`src/main.cc` é o programa principal e `src/math.{cc,h}` é uma biblioteca interna usada em `src/main.cc`.
 
-We will start from the basic on how to build the project using `c++(1)` only
-and a simple `Makefile`. Then we define the build in `CMakeLists.txt` and
-using `cmake(1)` to generate complex `Makefile` for us.
+O primeiro passo deste tutorial é contruir o projeto usando um simples makefile. 
+Em seguida, definiremos um script CMakeLists.txt que gerará complexo Makefiles para nós
+atraves do comando `cmake`.
 
 
-## Install CMake
+## Instalando CMake
 
 First of all, you need to install `cmake`. 
 
