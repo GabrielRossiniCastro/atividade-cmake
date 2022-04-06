@@ -203,21 +203,20 @@ target_link_libraries(math_test math gtest Threads::Threads)
 add_dependencies(math_test googletest)
 set_target_properties(math_test PROPERTIES EXCLUDE_FROM_ALL TRUE)
 ```
-
-Re-generate the build files using the following command:
+Gera o makefile novamente:
 
 ```
 cd build/
 cmake ..
 ```
 
-Build the unit test:
+Gera o teste unitário:
 
 ```
 cmake --build . --target math_test
 ```
 
-Run the test:
+Executa o teste:
 
 ```
 % ./math_test 
@@ -254,8 +253,8 @@ Done.
 
 ### IDE Support
 
-If you are using `CLion`, the google test will automatically detected.
+Se você usa`CLion`, o google test será automaticamente detectado.
 
 ![CLion](https://s9.postimg.org/ugqkdw6nh/Screen_Shot_2018-02-16_at_21.03.10.png)
 
-Visual studio also support cmake
+
