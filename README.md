@@ -34,21 +34,27 @@ atraves do comando `cmake`.
 
 ## Instalando CMake
 
-First of all, you need to install `cmake`. 
+A instalação do `cmake` geralmente é um processo simples.  
 
-On Ubuntu:
+No Ubuntu:
 
 ```
 sudo apt-get install cmake
 ```
 
-On macOS:
+No macOS:
 
 ```
 brew install cmake
 ```
 
-Make sure the `cmake` is installed correctly:
+No windows:
+Recomenda utilizar o subsistema linux no windows e proceder com a instalação da mesma forma que no linux.
+
+Veja o seguinte link:
+ - https://docs.microsoft.com/pt-br/windows/wsl/setup/environment
+
+Verifique se a instalação está correta: 
 
 ```
 % cmake --version
@@ -57,25 +63,25 @@ cmake version 3.10.2
 CMake suite maintained and supported by Kitware (kitware.com/cmake).
 ```
 
-## Compiling & Linking
+## Compilando & Link-editando
 
-We can build this project using the following command: 
-
-```
-c++ src/main.cc src/math.cc -o cmake-tutorial
-```
-
-Or we can do the compile and linking on the separate steps
+Podemos compilar esse projeto manualmente usando o comando
 
 ```
-c++ -c src/math.cc -o math.o 
-c++ src/main.cc math.o -o cmake-tutorial
+g++ src/main.cc src/math.cc -o cmake-tutorial
 ```
 
-## Using Makefile
+Ou pode-se compilar e link-editar em etapas separadas
 
-We can automate the step to compile and link above using `Makefile`.
-First we need to create new `Makefile` in the root directory with the following content:
+```
+g++ -c src/math.cc -o math.o 
+g++ src/main.cc math.o -o cmake-tutorial
+```
+
+## Usando Makefile
+
+Pode-se automatizar o processo de compilação e link-edição acima usando `Makefile`.
+Primeiro temos que criar o arquivo `Makefile` no diretório raiz com o seguinte conteúdo:
 
 ```makefile
 # Add definition to generate math.o object file
@@ -87,23 +93,23 @@ cmake-tutorial: math.o
     c++ src/main.cc math.o -o cmake-tutorial
 ```
 
-Now we can run:
+Agora podemos executar:
 
 ```
 make cmake-tutorial
 ```
 
-to build `cmake-tutorial` binary. If there are no changes in `src/{main,math}.cc` and `src/math.h`,
-the subsequent command will do nothing:
+para contruir o executável `cmake-tutorial`. Se não houver nenhuma mudança nos arquivos `src/{main,math}.cc` e `src/math.h`,
+o comando a seguir não produzira nehuma ação:
 
 ```
 % make cmake-tutorial
 make: Nothing to be done for `cmake-tutorial'.
 ```
 
-this is useful when working on larger project, we only compile the object that changes.
+Isto é extremamente util quando trabalhamos com projetos muito grandes um fez que apenas arquivos com alterações no código serão recompilados.
 
-## Using CMake
+## Usando CMake
 
 Now we know how to perform compiling and linking using the `C++` and `make` command.
 Now we can use `cmake` to do all of this for us.
