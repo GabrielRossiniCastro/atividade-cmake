@@ -44,7 +44,7 @@ find_package(Threads REQUIRED)
 
 # Test
 add_executable(math_test test/math_test.cc)
-target_link_libraries(math_test math gtest Threads::Threads)
+target_link_libraries(math_test PRIVATE math gtest Threads::Threads)
 
 
 # Make sure third-party is built before executable
