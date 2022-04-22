@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.10)
+cmake_minimum_required (VERSION 3.14)
 
 # Define the project
 project(cmake-tutorial)
@@ -11,42 +11,22 @@ add_library(math src/math.cc)
 
 
 # Add definition for the cmake-tutorial binary
-add_executable(cmake-tutorial src/main.cc)
-target_link_libraries(cmake-tutorial math)
+add_executable(cmake_tutorial src/main.cc)
+target_link_libraries(cmake_tutorial math)
 
-
-# Third-party library
-include(ExternalProject)
-ExternalProject_Add(googletest
-    PREFIX "${CMAKE_BINARY_DIR}/lib"
-    GIT_REPOSITORY "https://github.com/google/googletest.git"
-    GIT_TAG "main"
-    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/lib/installed
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  # Specify the commit you depend on and update it regularly.
+  URL https://github.com/google/googletest/archive/e2239ee6043f73722e7aa812a459f54a28552929.zip
 )
 
-
-# Prevent build on all targets build
-set_target_properties(googletest PROPERTIES EXCLUDE_FROM_ALL TRUE)
-
-
-# Define ${CMAKE_INSTALL_...} variables
-include(GNUInstallDirs)
-
-
-# Specify where third-party libraries are located
-link_directories(${CMAKE_BINARY_DIR}/lib/installed/${CMAKE_INSTALL_LIBDIR})
-include_directories(${CMAKE_BINARY_DIR}/lib/installed/${CMAKE_INSTALL_INCLUDEDIR})
-
-
-# This is required for googletest
-find_package(Threads REQUIRED)
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
 
 
 # Test
 add_executable(math_test test/math_test.cc)
-target_link_libraries(math_test PRIVATE math gtest Threads::Threads)
+target_link_libraries(math_test PRIVATE math gtest)
 
-
-# Make sure third-party is built before executable
-add_dependencies(math_test googletest)
-set_target_properties(math_test PROPERTIES EXCLUDE_FROM_ALL TRUE)
